@@ -284,13 +284,13 @@ class MSVCCompiler(CCompiler) :
         self.preprocess_options = None
         if self.__arch == "Intel":
             self.compile_options = [ '/nologo', '/Ox', '/MD', '/W3', '/GX' ,
-                                     '/DNDEBUG', '/Z7']
+                                     '/DNDEBUG']
             self.compile_options_debug = ['/nologo', '/Od', '/MDd', '/W3', '/GX',
                                           '/Z7', '/D_DEBUG']
         else:
             # Win64
             self.compile_options = [ '/nologo', '/Ox', '/MD', '/W3', '/GS-' ,
-                                     '/DNDEBUG', '/Z7']
+                                     '/DNDEBUG']
             self.compile_options_debug = ['/nologo', '/Od', '/MDd', '/W3', '/GS-',
                                           '/Z7', '/D_DEBUG']
 
@@ -303,7 +303,7 @@ class MSVCCompiler(CCompiler) :
             self.ldflags_shared_debug = [
                 '/DLL', '/nologo', '/INCREMENTAL:no', '/pdb:None', '/DEBUG'
                 ]
-        self.ldflags_static = [ '/nologo']
+        self.ldflags_static = [ '/nologo', '/Z7']
 
         self.initialized = True
 
