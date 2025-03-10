@@ -42,7 +42,7 @@ echo.Available arguments:
 echo.  -c Release ^| Debug ^| PGInstrument ^| PGUpdate
 echo.     Set the configuration (default: Release)
 echo.  -p x64 ^| Win32
-echo.     Set the platform (default: Win32)
+echo.     Set the platform (default: x64)
 echo.  -t Build ^| Rebuild ^| Clean ^| CleanAll
 echo.     Set the target manually
 echo.  --pgo-job  The job to use for PGO training; implies --pgo
@@ -51,7 +51,7 @@ exit /b 127
 
 :Run
 setlocal
-set platf=Win32
+set platf=x64
 set conf=Release
 set target=Build
 set dir=%~dp0
@@ -137,10 +137,10 @@ rem Passing %1-9 is not the preferred option, but argument parsing in
 rem batch is, shall we say, "lackluster"
 echo on
 %MSBUILD% "%dir%pcbuild.proj" /t:%target% %parallel% %verbose%^
- /p:Configuration=%conf% /p:Platform=%platf%^
+ /p:PyDebugExt=_x64 /p:Configuration=%conf% /p:Platform=%platf%^
  /p:IncludeExternals=%IncludeExternals%^
  /p:IncludeSSL=%IncludeSSL% /p:IncludeTkinter=%IncludeTkinter%^
- /p:UseTestMarker=%UseTestMarker% %GITProperty%^
+ /bl:msbuild.binlog /p:UseTestMarker=%UseTestMarker% %GITProperty%^
  %1 %2 %3 %4 %5 %6 %7 %8 %9
 
 @echo off

@@ -706,8 +706,10 @@ class build_ext(Command):
             from distutils._msvccompiler import MSVCCompiler
             if not isinstance(self.compiler, MSVCCompiler):
                 template = "python%d%d"
-                if self.debug:
-                    template = template + '_d'
+                # ts4 suffix
+                template = template + '_x64'
+                #if self.debug:
+                #    template = template + '_d'
                 pythonlib = (template %
                        (sys.hexversion >> 24, (sys.hexversion >> 16) & 0xff))
                 # don't extend ext.libraries, it may be shared with other
