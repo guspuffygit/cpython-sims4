@@ -271,11 +271,11 @@ Py_NO_ENABLE_SHARED to find out.  Also support MS_NO_COREDLL for b/w compat */
                         file in their Makefile (other compilers are
                         generally taken care of by distutils.) */
 #                       if defined(_DEBUG)
-#                               pragma comment(lib,"python37_d.lib")
+#                               pragma comment(lib,"python37_x64_d.lib")
 #                       elif defined(Py_LIMITED_API)
-#                               pragma comment(lib,"python3.lib")
+#                               pragma comment(lib,"python3_x64.lib")
 #                       else
-#                               pragma comment(lib,"python37.lib")
+#                               pragma comment(lib,"python37_x64.lib")
 #                       endif /* _DEBUG */
 #               endif /* _MSC_VER */
 #       endif /* Py_BUILD_CORE */

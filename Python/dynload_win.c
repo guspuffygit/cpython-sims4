@@ -18,11 +18,16 @@ extern ULONG_PTR _Py_ActivateActCtx();
 void _Py_DeactivateActCtx(ULONG_PTR cookie);
 #endif
 
+/*
 #ifdef _DEBUG
 #define PYD_DEBUG_SUFFIX "_d"
 #else
 #define PYD_DEBUG_SUFFIX ""
 #endif
+*/
+
+// ts4 suffix
+#define PYD_DEBUG_SUFFIX "_x64"
 
 #ifdef PYD_PLATFORM_TAG
 #define PYD_TAGGED_SUFFIX PYD_DEBUG_SUFFIX ".cp" Py_STRINGIFY(PY_MAJOR_VERSION) Py_STRINGIFY(PY_MINOR_VERSION) "-" PYD_PLATFORM_TAG ".pyd"

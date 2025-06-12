@@ -10,11 +10,15 @@
 #include "modsupport.h"
 #include "patchlevel.h"
 #include <pythonnt_rc.h>
+/*
 #ifdef _DEBUG
 #   define PYTHON_DEBUG_EXT "_d"
 #else
 #   define PYTHON_DEBUG_EXT
 #endif
+*/
+// ts4 suffix
+#define PYTHON_DEBUG_EXT "_x64"
 
 /* e.g., 3.3.0a1
  * PY_VERSION comes from patchlevel.h

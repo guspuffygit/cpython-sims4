@@ -62,6 +62,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <!-- ts4 suffix -->
+    <PyDebugExt>_x64</PyDebugExt>
     <!-- Suffix for all binaries when building for debug -->
     <PyDebugExt Condition="'$(PyDebugExt)' == '' and $(Configuration) == 'Debug'">_d</PyDebugExt>
     
