@@ -9414,8 +9414,8 @@ then
 			fi
 		else
 			# building for OS X 10.3 and later
-			LDSHARED='$(CC) -bundle -undefined dynamic_lookup'
-			LDCXXSHARED='$(CXX) -bundle -undefined dynamic_lookup'
+			LDSHARED='$(CC) -dynamiclib -undefined dynamic_lookup'
+      LDCXXSHARED='$(CXX) -dynamiclib -undefined dynamic_lookup'
 			BLDSHARED="$LDSHARED"
 		fi
 		;;
