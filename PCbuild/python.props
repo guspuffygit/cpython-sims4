@@ -55,6 +55,8 @@
     <nasmDir>$(ExternalsDir)\nasm-2.11.06\</nasmDir>
     <zlibDir>$(ExternalsDir)\zlib-1.2.11\</zlibDir>
     
+    <!-- ts4 suffix -->
+    <PyDebugExt>_x64</PyDebugExt>
     <!-- Suffix for all binaries when building for debug -->
     <PyDebugExt Condition="'$(PyDebugExt)' == '' and $(Configuration) == 'Debug'">_d</PyDebugExt>
     
