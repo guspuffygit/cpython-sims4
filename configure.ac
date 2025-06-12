@@ -2558,8 +2558,8 @@ then
 			LDCXXSHARED='$(CXX) -b'
 		fi ;;
 	Darwin/1.3*)
-		LDSHARED='$(CC) -bundle'
-		LDCXXSHARED='$(CXX) -bundle'
+		LDSHARED='$(CC) -dynamiclib'
+		LDCXXSHARED='$(CXX) -dynamiclib'
 		if test "$enable_framework" ; then
 			# Link against the framework. All externals should be defined.
 			BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
@@ -2571,8 +2571,8 @@ then
 			LDCXXSHARED="$LDCXXSHARED -undefined suppress"
 		fi ;;
 	Darwin/1.4*|Darwin/5.*|Darwin/6.*)
-		LDSHARED='$(CC) -bundle'
-		LDCXXSHARED='$(CXX) -bundle'
+		LDSHARED='$(CC) -dynamiclib'
+		LDCXXSHARED='$(CXX) -dynamiclib'
 		if test "$enable_framework" ; then
 			# Link against the framework. All externals should be defined.
 			BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
@@ -2596,8 +2596,8 @@ then
 		   test ${dep_target_minor} -le 2
 		then
 			# building for OS X 10.0 through 10.2
-			LDSHARED='$(CC) -bundle'
-			LDCXXSHARED='$(CXX) -bundle'
+			LDSHARED='$(CC) -dynamiclib'
+			LDCXXSHARED='$(CXX) -dynamiclib'
 			if test "$enable_framework" ; then
 				# Link against the framework. All externals should be defined.
 				BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
@@ -2611,8 +2611,8 @@ then
 			fi
 		else
 			# building for OS X 10.3 and later
-			LDSHARED='$(CC) -bundle -undefined dynamic_lookup'
-			LDCXXSHARED='$(CXX) -bundle -undefined dynamic_lookup'
+			LDSHARED='$(CC) -dynamiclib -undefined dynamic_lookup'
+			LDCXXSHARED='$(CXX) -dynamiclib -undefined dynamic_lookup'
 			BLDSHARED="$LDSHARED"
 		fi
 		;;

@@ -44,13 +44,6 @@ def get_platform():
     return sys.platform
 host_platform = get_platform()
 
-if host_platform == 'darwin':
-    from distutils import sysconfig as distutils_sysconfig
-    cfg_vars = distutils_sysconfig.get_config_vars()
-    if 'LDSHARED' in cfg_vars:
-        print(f"VALUES: {cfg_vars['LDSHARED']}")
-        cfg_vars['LDSHARED'] = cfg_vars['LDSHARED'].replace('-bundle', '-dynamiclib')
-
 # Were we compiled --with-pydebug or with #define Py_DEBUG?
 COMPILED_WITH_PYDEBUG = ('--with-pydebug' in sysconfig.get_config_var("CONFIG_ARGS"))
 
