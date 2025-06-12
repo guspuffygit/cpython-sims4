@@ -12,7 +12,7 @@ LDFLAGS="-L$(brew --prefix gdbm)/lib -L$(brew --prefix xz)/lib \
             --with-ensurepip=upgrade \
             --enable-shared \
             --enable-universalsdk="$(xcrun --sdk macosx --show-sdk-path)" \
-            --with-universal-archs=all \
+            --with-universal-archs=universal2 \
             --with-suffix=""
 
 make
