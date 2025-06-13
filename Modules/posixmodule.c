@@ -8,7 +8,11 @@
    of the compiler used.  Different compilers define their own feature
    test macro, e.g. '_MSC_VER'. */
 
-
+#ifdef __APPLE__
+#define _DARWIN_C_SOURCE        /* must come before any system header */
+#include <sys/socket.h>        /* declares sendfile() on macOS */
+#include <sys/uio.h>           /* sf_hdtr */
+#endif
 
 #ifdef __APPLE__
    /*
@@ -8398,7 +8402,7 @@ posix_sendfile(PyObject *self, PyObject *args, PyObject *kwdict)
     do {
         Py_BEGIN_ALLOW_THREADS
 #ifdef __APPLE__
-        ret = sendfile(in, out, offset, &sbytes, &sf, flags);
+        ret = sendfile(in, out, offset, &sbytes, &sf, flags); // This is line 8401
 #else
         ret = sendfile(in, out, offset, len, &sf, &sbytes, flags);
 #endif

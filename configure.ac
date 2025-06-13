@@ -212,7 +212,7 @@ fi
 AC_SUBST(LIPO_32BIT_FLAGS)
 AC_MSG_CHECKING(for --with-universal-archs)
 AC_ARG_WITH(universal-archs,
-    AS_HELP_STRING([--with-universal-archs=ARCH], [select architectures for universal build ("32-bit", "64-bit", "3-way", "intel", "intel-32", "intel-64", or "all")]),
+    AS_HELP_STRING([--with-universal-archs=ARCH], [select architectures for universal build ("universal2", "32-bit", "64-bit", "3-way", "intel", "intel-32", "intel-64", or "all")]),
 [
 	UNIVERSAL_ARCHS="$withval"
 ],
@@ -724,9 +724,6 @@ then
 fi
 
 
-MULTIARCH=$($CC --print-multiarch 2>/dev/null)
-AC_SUBST(MULTIARCH)
-
 AC_MSG_CHECKING([for the platform triplet based on compiler characteristics])
 cat >> conftest.c <<EOF
 #undef bfin
@@ -879,6 +876,11 @@ else
   AC_MSG_RESULT([none])
 fi
 rm -f conftest.c conftest.out
+
+if test x$PLATFORM_TRIPLET != xdarwin; then
+  MULTIARCH=$($CC --print-multiarch 2>/dev/null)
+fi
+AC_SUBST(MULTIARCH)
 
 if test x$PLATFORM_TRIPLET != x && test x$MULTIARCH != x; then
   if test x$PLATFORM_TRIPLET != x$MULTIARCH; then
@@ -1836,13 +1838,19 @@ yes)
                LIPO_32BIT_FLAGS=""
                ARCH_RUN_32BIT="true"
                ;;
+            universal2)
+               UNIVERSAL_ARCH_FLAGS="-arch arm64 -arch x86_64"
+               LIPO_32BIT_FLAGS=""
+               LIPO_INTEL64_FLAGS="-extract x86_64"
+               ARCH_RUN_32BIT="true"
+               ;;
             3-way)
                UNIVERSAL_ARCH_FLAGS="-arch i386 -arch ppc -arch x86_64"
                LIPO_32BIT_FLAGS="-extract ppc7400 -extract i386"
                ARCH_RUN_32BIT="/usr/bin/arch -i386 -ppc"
                ;;
             *)
-               AC_MSG_ERROR([proper usage is --with-universal-arch=32-bit|64-bit|all|intel|3-way])
+               AC_MSG_ERROR([proper usage is --with-universal-arch=universal2|32-bit|64-bit|all|intel|3-way])
                ;;
             esac
 
@@ -2515,8 +2523,8 @@ then
 			LDCXXSHARED='$(CXX) -b'
 		fi ;;
 	Darwin/1.3*)
-		LDSHARED='$(CC) -bundle'
-		LDCXXSHARED='$(CXX) -bundle'
+		LDSHARED='$(CC) -dynamiclib'
+		LDCXXSHARED='$(CXX) -dynamiclib'
 		if test "$enable_framework" ; then
 			# Link against the framework. All externals should be defined.
 			BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
@@ -2528,8 +2536,8 @@ then
 			LDCXXSHARED="$LDCXXSHARED -undefined suppress"
 		fi ;;
 	Darwin/1.4*|Darwin/5.*|Darwin/6.*)
-		LDSHARED='$(CC) -bundle'
-		LDCXXSHARED='$(CXX) -bundle'
+		LDSHARED='$(CC) -dynamiclib'
+		LDCXXSHARED='$(CXX) -dynamiclib'
 		if test "$enable_framework" ; then
 			# Link against the framework. All externals should be defined.
 			BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
@@ -2553,8 +2561,8 @@ then
 		   test ${dep_target_minor} -le 2
 		then
 			# building for OS X 10.0 through 10.2
-			LDSHARED='$(CC) -bundle'
-			LDCXXSHARED='$(CXX) -bundle'
+			LDSHARED='$(CC) -dynamiclib'
+			LDCXXSHARED='$(CXX) -dynamiclib'
 			if test "$enable_framework" ; then
 				# Link against the framework. All externals should be defined.
 				BLDSHARED="$LDSHARED "'$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
@@ -2568,8 +2576,8 @@ then
 			fi
 		else
 			# building for OS X 10.3 and later
-			LDSHARED='$(CC) -bundle -undefined dynamic_lookup'
-			LDCXXSHARED='$(CXX) -bundle -undefined dynamic_lookup'
+			LDSHARED='$(CC) -dynamiclib -undefined dynamic_lookup'
+			LDCXXSHARED='$(CXX) -dynamiclib -undefined dynamic_lookup'
 			BLDSHARED="$LDSHARED"
 		fi
 		;;
